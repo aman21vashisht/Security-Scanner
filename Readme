@@ -1,0 +1,225 @@
+# AI Security Scanner
+
+An AI-powered Python security analysis tool that uses Google's Gemini API to review Python source code, identify potential security vulnerabilities, and generate remediation recommendations.
+
+## Overview
+
+AI Security Scanner helps developers identify common security weaknesses in Python applications through AI-assisted source code analysis.
+
+The scanner reviews Python files and checks for potential vulnerabilities such as:
+
+- SQL Injection
+- Command Injection
+- Weak Password Hashing
+- Hardcoded Credentials
+- Path Traversal
+- Insecure File Handling
+- Unsafe Deserialization
+- Missing Input Validation
+
+## Features
+
+- AI-powered Python source code analysis
+- Gemini API integration
+- Security vulnerability identification
+- Severity classification
+- Remediation recommendations
+- Secure code suggestions
+- Text-based security audit report
+- Automatic report generation
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Application development |
+| Google Gemini API | AI security analysis |
+| Google Gen AI SDK | Gemini API integration |
+| Python-dotenv | Environment configuration |
+| CMD | Project execution |
+
+## Project Structure
+
+```text
+Security-Scanner/
+│
+├── scanner.py
+├── requirements.txt
+├── .env
+├── .env.example
+├── .gitignore
+├── README.md
+│
+├── test_files/
+│   └── vulnerable.py
+│
+└── security_report.txt
+```
+
+## Requirements
+
+- Python 3.10 or newer
+- Google Gemini API key
+- Internet connection
+- Windows, Linux, or macOS
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd Security-Scanner
+```
+
+Alternatively, download the project and open its folder in CMD.
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 3. Activate the environment
+
+Windows CMD:
+
+```cmd
+venv\Scripts\activate.bat
+```
+
+Windows PowerShell:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 4. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+## API Configuration
+
+1. Visit [Google AI Studio](https://aistudio.google.com/api-keys).
+2. Generate a Gemini API key.
+3. Create a `.env` file in the project root.
+4. Add the following configuration:
+
+```env
+GOOGLE_API_KEY=YOUR_API_KEY
+```
+
+**Security:** Never upload `.env` or expose your API key on GitHub.
+
+## Usage
+
+### Scan the default test file
+
+```bash
+python scanner.py
+```
+
+### Scan a specific Python file
+
+```bash
+python scanner.py test_files/vulnerable.py
+```
+
+### Scan another Python file
+
+```bash
+python scanner.py path/to/your_file.py
+```
+
+## Sample Test Code
+
+Create `test_files/vulnerable.py` to test the scanner:
+
+```python
+import sqlite3
+import hashlib
+import os
+
+def get_user(username):
+    connection = sqlite3.connect("users.db")
+    query = "SELECT * FROM users WHERE username = '" + username + "'"
+    return connection.execute(query).fetchall()
+
+def hash_password(password):
+    return hashlib.md5(password.encode()).hexdigest()
+
+def execute_command(user_input):
+    os.system("echo " + user_input)
+```
+
+This sample contains deliberately insecure patterns for testing.
+
+## Expected Analysis
+
+The scanner should investigate:
+
+| Vulnerability | Example |
+|---|---|
+| SQL Injection | Unsafe SQL string concatenation |
+| Weak Hashing | MD5 password hashing |
+| Command Injection | Untrusted input passed to shell |
+
+Actual findings and severity depend on the AI analysis and must be manually verified.
+
+## Output
+
+After a successful scan, the application generates:
+
+```text
+security_report.txt
+```
+
+The report contains identified findings, explanations, severity levels, and recommended fixes.
+
+## Error Handling
+
+| Error | Possible solution |
+|---|---|
+| API key not found | Check `.env` configuration |
+| 400 INVALID_ARGUMENT | Check API key and request |
+| 403 PERMISSION_DENIED | Check API access, billing and project eligibility |
+| 404 NOT_FOUND | Verify the available Gemini model ID |
+| 429 RESOURCE_EXHAUSTED | Check API quota and rate limits |
+| 503 UNAVAILABLE | Retry after temporary service disruption |
+| 504 DEADLINE_EXCEEDED | Check network and retry with a longer timeout |
+
+## Limitations
+
+- Requires internet access for Gemini analysis.
+- AI-generated findings may contain false positives or false negatives.
+- The scanner currently reviews Python source files only.
+- AI analysis does not replace professional security testing.
+- The scanner does not execute the submitted source file.
+
+## Future Enhancements
+
+- Local scanning with Bandit
+- Semgrep integration
+- HTML and PDF security reports
+- Interactive security dashboard
+- CWE and OWASP mapping
+- Multi-file project scanning
+- CI/CD pipeline integration
+- Risk scoring and vulnerability statistics
+
+## Disclaimer
+
+This project is intended for educational and authorized defensive security testing. Always verify findings before applying recommended changes.
+
+## Author
+
+**Aman Sharma**
+
+B.Tech Computer Science and Engineering
+
+Project: AI Security Scanner
+
+Technologies: Python | Generative AI | Gemini API | Application Security
